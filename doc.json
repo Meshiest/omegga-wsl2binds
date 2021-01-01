@@ -1,0 +1,6 @@
+{
+  "name": "wsl2binds",
+  "description": "Automatically creates a UDP proxy for wsl2 systems",
+  "author": "cake",
+  "commands": []
+}

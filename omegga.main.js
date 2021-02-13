@@ -42,6 +42,11 @@ module.exports = class Binder {
       return error('Could not find IP', ip, stderr);
     }
 
+    const { port: webPort } = this.omegga.config.omegga;
+
+    info(`Please run the following command in ${'Windows Powershell'.brightYellow} as ${'Administrator'.brightYellow} to access the ${'Web UI'.green}:`);
+    info(`netsh interface portproxy add v4tov4 listenport=${webPort} listenaddress=0.0.0.0 connectport=${webPort} connectaddress=${ip}`.grey);
+
     // get config from omegga config
     const { port } = this.omegga.config.server;
 

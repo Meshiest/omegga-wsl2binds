@@ -38,21 +38,27 @@ module.exports = class Binder {
       data = data.trim();
 
       const isPid = data.match(/^pid = (\d+)$/);
-      const isClient = data.match(
+      const isClientOpen = data.match(
         /^client (?<ip>\d+\.\d+\.\d+\.\d+:\d+) -> 0\.0\.0\.0:(?<port>\d+)$/
+      );
+      const isClientClose = data.match(
+        /^client (?<ip>\d+\.\d+\.\d+\.\d+:\d+) -> closed$/
       );
       const isStart = data.match(/^Listening on 0\.0\.0\.0:\d+$/);
 
       if (isPid && !this.pid) {
         this.pid = isPid[1];
         info('UDP Proxy - PID is', (this.pid + '').yellow);
-      } else if (isClient) {
+      } else if (isClientOpen) {
         log(
           'Joining client',
-          isClient.groups.ip.yellow,
+          isClientOpen.groups.ip.yellow,
           '->',
-          isClient.groups.port.yellow
+          isClientOpen.groups.port.yellow
         );
+      } else if (isClientClose) {
+        // no need to log timed out clients
+        // log('Timed out client', isClientClose.groups.ip.yellow);
       } else if (isStart) {
         log('UDP Proxy - Listen server started');
       } else if (data.length > 0) {

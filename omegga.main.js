@@ -8,10 +8,24 @@ const TOOL_IP = path.join(__dirname, 'tools/ip.sh');
 const TOOL_PROXY = path.join(__dirname, 'tools/proxy.sh');
 
 // log helper fns
-const log = (...args) => Omegga.log('wsl2binds'.underline, '>>'.green, ...args);
-const info = (...args) => Omegga.log('wsl2binds'.underline, '?>'.blue, ...args);
+const log = (...args) =>
+  (global.Omegga ?? global.Logger).log(
+    'wsl2binds'.underline,
+    '>>'.green,
+    ...args
+  );
+const info = (...args) =>
+  (global.Omegga ?? global.Logger).log(
+    'wsl2binds'.underline,
+    '?>'.blue,
+    ...args
+  );
 const error = (...args) =>
-  Omegga.error('wsl2binds'.underline, '!>'.red, ...args);
+  (global.Omegga ?? global.Logger).error(
+    'wsl2binds'.underline,
+    '!>'.red,
+    ...args
+  );
 
 module.exports = class Binder {
   constructor(omegga, _config, _store) {
@@ -68,10 +82,7 @@ module.exports = class Binder {
 
     // handle output
     this.child.stdout.on('data', data => {
-      data
-        .toString()
-        .split('\n')
-        .forEach(handleLine);
+      data.toString().split('\n').forEach(handleLine);
     });
 
     // print error to console

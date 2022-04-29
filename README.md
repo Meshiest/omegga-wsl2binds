@@ -6,11 +6,11 @@ This will not work or be useful on linux, WSL1, or anything that isn't WSL2.
 
 ## Install
 
-Easy: `omegga install gh:Meshiest/wls2binds`
+Easy: `omegga install gh:Meshiest/wsl2binds`
 
 Manual:
 
-* `git clone https://github.com/meshiest/omegga-wsl2binds wsl2binds` in `plugins` directory
+- `git clone https://github.com/meshiest/omegga-wsl2binds wsl2binds` in `plugins` directory
 
 ## Why?
 
